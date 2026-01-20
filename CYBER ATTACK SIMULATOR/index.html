@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal — Suite de Simulateurs Cyber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Landing -->
+  <div class="landing" id="landing" role="dialog" aria-label="Landing">
+    <div class="landing-inner">
+      <div class="logo">⚡</div>
+      <h1>CYBER ATTACK SIMULATOR</h1>
+      <p class="subtitle">Educational Tool — Explore DoS, DDoS & Phishing</p>
+      <div class="buttons-row" role="navigation" aria-label="Choix simulateur">
+        <button class="bigbtn" data-target="dos">DoS</button>
+        <button class="bigbtn" data-target="ddos">DDoS</button>
+        <button class="bigbtn" data-target="phishing">Phishing</button>
+      </div>
+      <div class="note">⚠️ All simulations are visual and educational — no real attacks.</div>
+      
+      <!-- Changed button text from "Guide" to "User Guide" -->
+      <button id="landingGuideBtn" class="guide-landing-btn">📖 User Guide</button>
+      
+      <!-- Added tutor name section -->
+      <div class="tutor-section">
+        <div class="tutor-name">Tutor: KHOUKHI Lyes</div>
+      </div>
+      
+      <div class="team-section">
+        <!-- Removed team-divider div -->
+        <div class="university-name">UNIVERSITÉ PARIS CITÉ</div>
+        <div class="program-name">MASTER CYBERSÉCURITÉ</div>
+        <div class="team-members">
+          <div class="team-member">Rania BLIBEK</div>
+          <div class="team-member">Lounas BEN MEDJEBER</div>
+          <div class="team-member">Yanis MERABET</div>
+          <div class="team-member">Yasmine ZAHEM</div>
+          <div class="team-member">Imane SILEKAHEL</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Added contact email at bottom left of landing page -->
+    <div class="contact-section">
+      <div class="contact-text">To contact a developer:</div>
+      <a href="mailto:benmedjeber.tscontact@gmail.com" class="contact-email">benmedjeber.tscontact@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div class="app" id="app" aria-hidden="true">
+    <aside class="sidebar">
+      <h2>SIMULATORS</h2>
+      <nav>
+        <button data-target="dos" class="navbtn">DoS</button>
+        <button data-target="ddos" class="navbtn">DDoS</button>
+        <button data-target="phishing" class="navbtn">Phishing</button>
+      </nav>
+      <button id="guideBtn" class="guide-btn">📖 User Guide</button>
+      <div class="help">Educational — no real traffic.</div>
+      <button id="showLanding" class="back-to-landing">← Back to Home</button>
+    </aside>
+
+    <main class="content">
+      <header><h1>CYBER ATTACK SIMULATOR</h1></header>
+
+      <!-- DoS -->
+      <section id="dos" class="panel">
+        <div class="row">
+          <div class="card large">
+            <h2>DoS Simulator</h2>
+            <div class="icon-lg">💀</div>
+            <div id="dosWarning" class="warning-banner" style="display: none;">
+              ⚠️ WARNING: SERVER OVERLOAD DETECTED
+            </div>
+            <!-- Added packet animation canvas -->
+            <div class="animation-container">
+              <canvas id="dosAnimation" width="800" height="200"></canvas>
+            </div>
+            <div class="load-row"><div>Server Load</div><div id="dosLoadPercent">0%</div></div>
+            <div class="bar"><div id="dosLoadBar"></div></div>
+            <div class="chart-container">
+              <canvas id="dosChart" width="800" height="140"></canvas>
+            </div>
+            <div class="stats">
+              <div><div id="dosRequests">0</div><div class="muted">Requests</div></div>
+              <div><div id="dosBlocked">0</div><div class="muted">Blocked</div></div>
+              <div><div id="dosState" class="state up">UP</div><div class="muted">Status</div></div>
+            </div>
+          </div>
+          <div class="card small controls">
+            <h3>Parameters</h3>
+            <label>Intensity (<span id="dosIntensityLabel">100</span>)</label>
+            <input id="dosIntensity" type="range" min="0" max="200" value="100">
+            <label>Capacity (<span id="dosCapacityLabel">70</span>)</label>
+            <input id="dosCapacity" type="range" min="10" max="200" value="70">
+            <label>Defense (<span id="dosDefenseLabel">50</span>%)</label>
+            <input id="dosDefense" type="range" min="0" max="100" value="50">
+            <div class="btns">
+              <button id="dosToggle" class="danger">Stop</button>
+              <button id="dosReset" class="ghost">Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DDoS -->
+      <section id="ddos" class="panel">
+        <div class="row">
+          <div class="card large">
+            <h2>DDoS Simulator</h2>
+            <!-- Removed the globe emoji icon -->
+            <div id="ddosWarning" class="warning-banner" style="display: none;">
+              ⚠️ WARNING: SERVER OVERLOAD DETECTED (70%+)
+            </div>
+            <div id="ddosServerDown" class="server-down-banner" style="display: none;">
+              🔴 SERVER DOWN: CAPACITY EXCEEDED
+            </div>
+            <!-- Reduced canvas height from 400px to 350px -->
+            <div class="animation-container">
+              <canvas id="ddosAnimation" width="800" height="350"></canvas>
+            </div>
+            <div class="tiles">
+              <div class="tile"><div class="label">Traffic</div><div id="ddosTotal">0 req/s</div></div>
+              <div class="tile"><div class="label">Bots</div><div id="ddosBots">0</div></div>
+              <div class="tile"><div class="label">Sources</div><div id="ddosSources">0</div></div>
+            </div>
+            <!-- Styled title to match h2 heading style -->
+            <h2 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Server Saturation Graph</h2>
+            <div class="chart-wrap"><canvas id="ddosChart" width="800" height="120"></canvas></div>
+          </div>
+          <div class="card small controls">
+            <h3>Parameters</h3>
+            <label>Per bot (<span id="ddosPerBotLabel">1</span>)</label>
+            <input id="ddosPerBot" type="range" min="0" max="20" value="1">
+            <label>Bots (<span id="ddosBotCountLabel">1000</span>)</label>
+            <input id="ddosBotCount" type="range" min="10" max="50000" value="1000">
+            <label>Capacity (<span id="ddosCapacityLabel">5000</span>)</label>
+            <input id="ddosCapacity" type="range" min="1000" max="100000" value="5000">
+            <label>Defense (<span id="ddosDefenseLabel">50</span>%)</label>
+            <input id="ddosDefense" type="range" min="0" max="100" value="50">
+            <div class="btns">
+              <button id="ddosToggle" class="danger">Stop</button>
+              <button id="ddosReset" class="ghost">Reset</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phishing -->
+      <section id="phishing" class="panel">
+        <div id="phishing-root"></div>
+      </section>
+
+      <footer class="muted">All simulations are local — no real attacks.</footer>
+    </main>
+  </div>
+
+  <!-- Guide modal -->
+  <div id="guideModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeGuide" class="close-btn">✕</button>
+      <h2>📖 Application Guide</h2>
+      <div class="guide-section">
+        <h3>🎯 DoS (Denial of Service)</h3>
+        <p>A DoS attack overwhelms a single server with requests from one source.</p>
+        <ul>
+          <li><strong>Intensity:</strong> Controls the rate of attack requests</li>
+          <li><strong>Capacity:</strong> Server's ability to handle requests</li>
+          <li><strong>Defense:</strong> Percentage of requests blocked by security</li>
+          <li><strong>Warning:</strong> At 70% load, a warning appears indicating server stress</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <h3>🌐 DDoS (Distributed Denial of Service)</h3>
+        <p>A DDoS attack uses multiple compromised systems (botnet) to flood a target.</p>
+        <ul>
+          <li><strong>Bots:</strong> Number of compromised machines in the botnet</li>
+          <li><strong>Per bot:</strong> Requests per second from each bot</li>
+          <li><strong>Capacity:</strong> Maximum traffic the server can handle</li>
+          <li><strong>Defense:</strong> Percentage of malicious traffic blocked</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <h3>📧 Phishing</h3>
+        <p>Phishing simulates social engineering attacks via email.</p>
+        <ul>
+          <li><strong>Email Received:</strong> Simulated phishing emails sent</li>
+          <li><strong>Clicks:</strong> Users who clicked malicious links</li>
+          <li><strong>Alerts:</strong> Security detections triggered</li>
+        </ul>
+      </div>
+      <div class="guide-section warning">
+        <h3>⚠️ Important</h3>
+        <p>All simulations are <strong>completely local and educational</strong>. No real network traffic is generated.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="sim_phishing.js"></script>
+  <script src="sim-dos.js"></script>
+  <script src="sim-ddos.js"></script>
+  <script src="portal-main.js"></script>
+</body>
+</html>
